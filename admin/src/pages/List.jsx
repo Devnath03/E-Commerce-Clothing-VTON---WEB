@@ -22,6 +22,8 @@ const List = ({token}) => {
    toast.error(error.message)
   }
 }
+
+  // Remove Products From List
   const removeProduct = async (id) =>{
     try{
 
