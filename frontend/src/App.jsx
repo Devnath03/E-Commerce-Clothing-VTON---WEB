@@ -14,6 +14,7 @@ import SearchBar from './components/SearchBar'
 import { Toaster } from "@/components/ui/toaster"
 import 'react-toastify/dist/ReactToastify.css'
 import VTon from './pages/VTon'
+import Verify from './pages/Verify'
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/place-order' element={<PlaceOrder/>} />
         <Route path='/orders' element={<Orders/>} />
         <Route path="/vton/:productId" element={<VTon />} />
+        <Route path="/verify" element={<Verify />} />
       </Routes>
       <Footer/>
     </div>

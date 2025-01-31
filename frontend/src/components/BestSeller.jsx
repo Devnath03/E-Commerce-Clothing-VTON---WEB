@@ -13,6 +13,7 @@ const BestSeller = () => {
     setBestSeller(bestProduct.slice(0, 5));
   }, [products]);
 
+  
   // Define animation variants
   const itemVariants = {
     hidden: { opacity: 0, y: 20 }, // Initial state
