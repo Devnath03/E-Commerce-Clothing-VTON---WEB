@@ -8,9 +8,12 @@
     image: {type: Array, required:true },
     category: {type: String, required:true },
     subCategory: {type: String, required:true },
-    size: {type: Array, required:true },
-    beastseller: {type: Boolean },
-    date: {type: Number, required:true }
+    bestseller: { type: Boolean, default: false },
+    sizes: { type: [String], default: [] },
+    date: { type: Date, default: Date.now },
+   //  size: {type: Array, required:true },
+   //  beastseller: {type: Boolean },
+   //  date: { type: Date, default: Date.now },
 
  })
 

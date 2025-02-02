@@ -147,7 +147,7 @@ const Product = () => {
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
             <div className="flex gap-2">
-              {productData.sizes.map((item, index) => (
+              {productData.sizes && productData.sizes.map((item, index) => (
                 <button
                   onClick={() => setSize(item)}
                   className={`border py-2 px-4 bg-gray-100 ${
@@ -157,7 +157,17 @@ const Product = () => {
                 >
                   {item}
                 </button>
-              ))}
+              ))/* {productData.sizes.map((item, index) => (
+                <button
+                  onClick={() => setSize(item)}
+                  className={`border py-2 px-4 bg-gray-100 ${
+                    item === size ? "border-orange-500" : ""
+                  }`}
+                  key={index}
+                >
+                  {item}
+                </button>
+              ))} */}
               {size && ( // Show the clear text only if a size is selected
               <p
                 className="text-sm ml-2 mt-3 text-black hover:text-orange-500 cursor-pointer"

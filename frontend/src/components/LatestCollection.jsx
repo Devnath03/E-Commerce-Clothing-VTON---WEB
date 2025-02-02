@@ -10,7 +10,7 @@ const LatestCollection = () => {
 
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
-  }, [products]);
+  }, [products])
 
   // Define animation variants
   const itemVariants = {

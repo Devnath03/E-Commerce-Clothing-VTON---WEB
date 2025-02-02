@@ -9,6 +9,8 @@ const ProductItem = ({ id, image, name, price, colors }) => {
   const { currency } = useContext(ShopContext);
   const [isHovered, setIsHovered] = useState(false);
 
+
+  
   // Safely extract color names and remove the "Colors: " prefix
   const colorNames = colors?.slice(1).map((color) => color.replace("-", "").trim()) || [];
 
