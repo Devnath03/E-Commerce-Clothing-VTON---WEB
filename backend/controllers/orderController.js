@@ -47,7 +47,7 @@ const placeOrderStripe = async (req, res) => {
     try {
        
      const {userId, items, amount, address } = req.body
-     const { origin} = req.headers;
+     const {origin} = req.headers;
 
      const orderData = {
         userId,
@@ -121,7 +121,7 @@ const verifyStripe = async (req, res) => {
 
     try {
 
-        if(success === "true "){
+        if(success === "true"){
             await orderModel.findByIdAndUpdate(orderId, {payment:true})
             await userModel.findOneAndUpdate(userId, {cartData:{}})
             res.json({success: true});
@@ -174,7 +174,7 @@ const userOrders = async (req, res) => {
 
 }
 
-// Update Order Status from admin panel
+// Update Order Status from Admin panel
 const updateStatus = async (req, res) => {
 
     try {

@@ -10,34 +10,69 @@ const Order = () => {
 
   const [orderData, setOrderData] = useState([])
 
-  const loadOrderData  = async () => {
-    try {
+  // const loadOrderData  = async () => {
+  //   try {
       
-     if(!token){
-       return null
-     }
+  //    if(!token){
+  //      return null
+  //    }
      
-      const response = await axios.post(backendUrl + '/api/order/userorders', {},{headers:{token}})
+  //     const response = await axios.post(backendUrl + '/api/order/userorders', {},{headers:{token}})
       
-      if(response.data.success){
-        let allOrdersItem = []
-        response.data.orders.map ((order) => {
-          order.items.map((item) => {
-            item ['status'] = order.status
-            item ['payment'] = order.payment
-            item ['paymentMethod'] = order.paymentMethod
-            item ['date'] = order.date
-            allOrdersItem.push(item)
-          })
+  //     if(response.data.success){
+  //       let allOrdersItem = []
+  //       response.data.orders.map ((order) => {
+  //         order.items.map((item) => {
+  //           item ['status'] = order.status
+  //           item ['payment'] = order.payment
+  //           item ['paymentMethod'] = order.paymentMethod
+  //           item ['date'] = order.date
+  //           allOrdersItem.push(item)
+  //         })
 
-        })
-        setOrderData(allOrdersItem.reverse())
-      }
+  //       })
+  //       setOrderData(allOrdersItem.reverse())
+  //     }
 
-    } catch (error) {
+  //   } catch (error) {
       
+  //   }
+  // }
+
+  const loadOrderData  = async () => {
+  try {
+    if (!token) {
+      return;
     }
+    
+    const response = await axios.post(backendUrl + '/api/order/userorders', {}, { headers: { token } });
+
+    console.log("Order API Response:", response.data); // ✅ Debugging log
+
+    if (response.data.success) {
+      let allOrdersItem = []
+      response.data.orders.forEach((order) => {  // Use forEach instead of map
+        order.items.forEach((item) => {
+          allOrdersItem.push({
+            ...item, 
+            status: order.status,
+            payment: order.payment,
+            paymentMethod: order.paymentMethod,
+            date: order.date
+          });
+        });
+      });
+
+      setOrderData(allOrdersItem.reverse());
+      console.log("Processed Order Data:", allOrdersItem); // ✅ Debugging log
+    } else {
+      console.error("Order fetch failed:", response.data.message);
+    }
+  } catch (error) {
+    console.error("Error fetching orders:", error);
   }
+};
+
 
   useEffect(() => {
     loadOrderData()
@@ -66,7 +101,8 @@ const Order = () => {
             transition={{ duration: 0.3, delay: index * 0.1 }} // Delay for staggered effect
           >
             <div className='flex items-start gap-6 text-sm'>
-              <img className='w-16 sm:w-20' src={item.image[0]} alt="" />
+              {/* <img className='w-16 sm:w-20' src={item.image[0]} alt="" /> */}
+              <img className='w-16 sm:w-20' src={Array.isArray(item.image) ? item.image[0] : item.image} alt="" />
               <div>
                 <p className='sm:text-base font-medium'>{item.name}</p>
                 <div className='flex items-center gap-3 mt-1 text-base text-gray-700'>
