@@ -136,7 +136,7 @@ const ShopContextProvider = (props) => {
 
     try{
 
-        const response = await axios.post(backendUrl + '/api/cart/get',{}, {headers:{token}})
+        const response = await axios.post(backendUrl + '/api/cart/get',{},{headers:{token}})
         if(response.data.success){
             setCartItems(response.data.cartData)
         }
@@ -165,11 +165,10 @@ useEffect(()=>{
     const value = {
         products , currency , delivery_fee,
         search,setSearch,showSearch,setShowSearch,
-        cartItems,addToCart, setCartItems,
+        cartItems,addToCart,setCartItems,
         getCartCount,updateQuantity,
         getCartAmount, navigate,backendUrl,
         setToken, token
-
     }
 
     return (
