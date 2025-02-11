@@ -114,11 +114,16 @@ const PlaceOrder = () => {
         </div>
         <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="number" placeholder='Phone' />
 
+
+
+
+
         {/*---------------Payment Method Selection-------------- */}
         <div className='mt-12'>
           <Title text1={'PAYMENT'} text2={'METHOD'} />
           <div className='flex gap-3 flex-col lg:flex-row'>
-            <motion.div
+
+            {/* <motion.div
               onClick={() => setMethod('master')}
               className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
               whileTap={{ scale: 0.95 }}
@@ -126,8 +131,20 @@ const PlaceOrder = () => {
             >
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'master' ? 'bg-green-400' : ''}`}></p>
               <img className='h-5 mx-4' src={assets.master_logo} alt="" />
-            </motion.div>
+            </motion.div> */}
+
+            {/* Stripe Payemnt Method */}
             <motion.div
+              onClick={() => setMethod('stripe')}
+              className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+            >
+              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-400' : ''}`}></p>
+              <img className='h-5 mx-4' src={assets.stripe_logo} alt="" />
+            </motion.div>
+
+            {/* <motion.div
               onClick={() => setMethod('koko')}
               className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
               whileTap={{ scale: 0.95 }}
@@ -135,7 +152,21 @@ const PlaceOrder = () => {
             >
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'koko/mint' ? 'bg-green-400' : ''}`}></p>
               <img className='h-5 mx-1' src={assets.koko_logo} alt="" />
-            </motion.div> 
+            </motion.div> */}
+
+            
+            {/* Razorpay Payment method */}
+            <motion.div
+              onClick={() => setMethod('razorpay')}
+              className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 300, damping: 10 }}
+            >
+              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'razorpay' ? 'bg-green-400' : ''}`}></p>
+              <img className='h-5 mx-4' src={assets.razorpay_logo} alt="" />
+            </motion.div>
+
+            {/* Cash On Delivery Payment Method */}
             <motion.div
               onClick={() => setMethod('cod')}
               className='flex items-center gap-3 border p-2 px-3 cursor-pointer'
@@ -147,6 +178,8 @@ const PlaceOrder = () => {
             </motion.div>
           </div>
         </div>
+
+
 
         {/* Submit Button */}
         <div className='w-full text-end mt-8'>
