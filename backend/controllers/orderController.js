@@ -5,7 +5,7 @@ import Stripe from "stripe"
 
 
 // global variables
-const currency = 'Rs'
+const currency = 'Inr'
 const deliveryCharge = 10
 
 // Getway Initialize
@@ -52,11 +52,12 @@ const placeOrderStripe = async (req, res) => {
 
      const orderData = {
         userId,
-        items,
-        amount,
-        paymentMethod:"Stripe",
-        payment: false,
-        date : Date.now(),
+            items,
+            address,
+            amount,
+            paymentMethod:"Stripe",
+            payment: false,
+            date : Date.now(),
     }
 
     const newOrder = new orderModel(orderData)
@@ -77,22 +78,32 @@ const placeOrderStripe = async (req, res) => {
         price_data: {
             currency:currency,
             product_data: {
-                name: 'Delivery Charge'
+                name: 'Delivery Charges'
             },
             unit_amount: deliveryCharge * 100
         },
         quantity: 1
      })
 
-     const session = await stripe.checkout.sessions.create({
+    //  const session = await stripe.checkout.sessions.create({
+    //     success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+    //     cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+    //     line_items,
+    //     mode: 'payment',
+
+    //  })
+
+    //  res.json({success: true, session_url :session.url});
+    //////////////////////////////////////
+    const session = await stripe.checkout.sessions.create({
         success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
         cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
         line_items,
         mode: 'payment',
-
-     })
-
-     res.json({success: true, session_url :session.url});
+      });
+      
+      console.log("Stripe Session URL:", session.url); // Log the session URL
+      res.json({ success: true, session_url: session.url });
 
     } catch (error) {
         console.log(error)
@@ -118,13 +129,13 @@ const placeOrderStripe = async (req, res) => {
 // Verify Stripe
 const verifyStripe = async (req, res) => {
     
-    const {orderId, success , userId} = req.body
+    const { orderId, success , userId } = req.body
 
     try {
 
         if(success === "true"){
-            await orderModel.findByIdAndUpdate(orderId, {payment:true})
-            await userModel.findOneAndUpdate(userId, {cartData:{}})
+            await orderModel.findByIdAndUpdate(orderId, {payment:true});
+            await userModel.findByIdAndUpdate(userId, {cartData:{}})
             res.json({success: true});
         } else {
             await orderModel.findByIdAndDelete(orderId)
