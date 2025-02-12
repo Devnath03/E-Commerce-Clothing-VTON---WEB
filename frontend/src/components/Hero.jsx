@@ -23,7 +23,7 @@ const Hero = () => {
           {isPlaying && <SplashCursor />}
           <motion.video
             ref={videoRef}
-            src="src/assets/video1.mp4" // Video source
+            src="src/assets/video4.mp4" // Video source
             autoPlay
             loop
             muted
